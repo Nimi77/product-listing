@@ -1,0 +1,48 @@
+#cart {
+  padding: 20px 0;
+}
+.cart-container {
+  width: 100%;
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th,
+td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+.top {
+  background-color: #f2f2f2;
+}
+.cart-item {
+  background-color: #fff;
+
+.add-reduce button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+.add-reduce span {
+  margin: 0 10px;
+}
+.no-item {
+  text-align: center;
+  padding: 20px;
+}
+button {
+  background-color: #dc3545;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #c82333;
+}

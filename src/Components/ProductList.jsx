@@ -16,10 +16,6 @@ const truncateDescription = (description) => {
 const ProductList = ({ products,reduceQuantity, increaseQuantity, addToCart, quantities }) => {
   return (
     <div id="products" className="product-lists">
-      <div className="heading">
-        <h2>Available Products</h2>
-      </div>
-
       <div className="product-container">
         {products.map((product) => (
           <div key={product.id} className="product">
@@ -29,7 +25,7 @@ const ProductList = ({ products,reduceQuantity, increaseQuantity, addToCart, qua
             <div className="product-details">
               <div className="p-heading">
                 <span>{capitalizeFirstLetter(product.category)}</span>
-                <h2>{product.title}</h2>
+                <h4>{product.title}</h4>
                 <p
                   dangerouslySetInnerHTML={{
                     __html: truncateDescription(product.description),

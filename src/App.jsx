@@ -1,22 +1,34 @@
 /* eslint-disable no-unused-vars */
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
-import axios from 'axios'
+import axios from "axios";
+import CartIcon from "./Components/SvgIcon/CartIcon";
+import ProductIcon from "./Components/SvgIcon/ProductIcon";
+import Cart from "./Components/Cart/Cart";
+import ArrowLeft from "./Components/SvgIcon/ArrowLeft";
+import ArrowRight from "./Components/SvgIcon/ArrowRight";
 import ProductList from "./Components/ProductList";
-import Cart from "./Components/Cart";
+import Modal from "./Components/Modal/Modal";
+import SuccessIcon from "./Components/SvgIcon/SuccessIcon";
+import ErrorIcon from "./Components/SvgIcon/ErrorIcon"
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+
 
 function App() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
   const [quantities, setQuantities] = useState({});
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalIcon, setModalIcon] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get("https://dummyjson.com/products");
         const data = response.data;
-        setProducts(data.products)
+        setProducts(data.products);
 
         // Initialize quantities state as an object with product IDs as keys and 0 as the initial quantity
         const initialQuantities = data.products.reduce((acc, product) => {
@@ -24,7 +36,6 @@ function App() {
           return acc;
         }, {});
         setQuantities(initialQuantities);
-        
       } catch (error) {
         console.log("Error fetching data", error);
       }
@@ -33,10 +44,12 @@ function App() {
   }, []);
 
   const addToCart = (product) => {
-    alert("product a been added to cart");
-    // Ensure product has all required properties
-    if (!product.id || !product.title || !product.price) {
-      console.error("Product is missing required properties", product);
+    if (quantities[product.id] === 0) {
+      setShowModal(true);
+      setModalMessage(
+        "Please add a quantity greater than 0 before adding to cart."
+      );
+      setModalIcon(<ErrorIcon/>);
       return;
     }
     //updating the [cart] state
@@ -58,6 +71,11 @@ function App() {
       ...prevQuantities,
       [product.id]: 0,
     })); // Reset quantity after adding to cart
+
+    setShowModal(true);
+    setModalMessage("Product has been added to cart successfully.");
+    setModalIcon(<SuccessIcon/>);
+    
   };
 
   const removeFromCart = (productId) => {
@@ -94,38 +112,72 @@ function App() {
   );
 
   return (
-    <div className="container">
-      <div className="layout">
-        {products.length > 0 && (
-          <ProductList
-            products={displayedProducts}
-            reduceQuantity={reduceQuantity}
-            increaseQuantity={increaseQuantity}
-            quantities={quantities}
-            addToCart={addToCart}
+    <Router>
+      <div className="container">
+        <header className="header">
+          <Link to="/">
+            <ProductIcon />
+          </Link>
+          <Link to="/cart">
+            <CartIcon />
+          </Link>
+        </header>
+        <div className="main">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <div className="">
+                  <div className="main-heading">
+                    <h3>Available Products</h3>
+                    <div className="arrow-buttons">
+                      <button
+                        onClick={handlePrev}
+                        disabled={currentProductIndex === 0}
+                      >
+                        <ArrowLeft />
+                      </button>
+                      <button
+                        onClick={handleNext}
+                        disabled={currentProductIndex >= products.length - 3}
+                      >
+                        <ArrowRight />
+                      </button>
+                    </div>
+                  </div>
+                  {products.length > 0 && (
+                    <ProductList
+                      products={displayedProducts}
+                      reduceQuantity={reduceQuantity}
+                      increaseQuantity={increaseQuantity}
+                      quantities={quantities}
+                      addToCart={addToCart}
+                    />
+                  )}
+                </div>
+              }
+            />
+            <Route
+              path="/cart"
+              element={
+                <Cart
+                  cart={cart}
+                  removeFromCart={removeFromCart}
+                  reduceQuantity={reduceQuantity}
+                  increaseQuantity={increaseQuantity}
+                />
+              }
+            />
+          </Routes>
+          <Modal
+            message={modalMessage}
+            show={showModal}
+            icon={modalIcon}
+            onClose={() => setShowModal(false)}
           />
-        )}
-        <div className="controls">
-          <button onClick={handlePrev} disabled={currentProductIndex === 0}>
-            Prev
-          </button>
-          <button
-            onClick={handleNext}
-            disabled={currentProductIndex >= products.length - 3}
-          >
-            Next
-          </button>
         </div>
       </div>
-    </div>
+    </Router>
   );
 }
-
 export default App;
-
-{
-  /* <h1>Product List</h1>
-    
-      <h2>Cart</h2>
-      <Cart cart={cart} removeFromCart={removeFromCart} reduceQuantity={reduceQuantity}></Cart> */
-}

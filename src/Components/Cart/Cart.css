@@ -1,14 +1,23 @@
 #cart {
-  margin-block: 44px;
+ 
 }
 .cart-container {
   width: 100%;
   overflow-x: auto;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 2.8rem;
   justify-content: center;
   align-items: center;
+}
+.cart-container h2 {
+  color: white;
+}
+.table-responsive {
+  width: 100%;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 table {
   width: 100%;
@@ -59,7 +68,8 @@ td {
 }
 .no-item {
   text-align: center;
-  padding: 2rem 1rem;
+  padding: 2rem 12px;
+  width:100%;
   background-color: white;
 }
 .bottom a {
@@ -96,5 +106,65 @@ td {
   }
   100% {
     transform: translateX(0);
+  }
+}
+/* Responsive Styles */
+@media (max-width: 768px) {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+  thead tr {
+    position:absolute;
+    top:-9999px;
+    left:-9999px;
+  }
+  tr {
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    /* padding: 10px; */
+  }
+  td {
+    border: none;
+    position: relative;
+    padding-left: 50%;
+    display: flex;
+    align-items: center;
+
+    border-bottom:1px solid #eee;
+  }
+  td:before {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    white-space: nowrap;
+    text-align:left; 
+    font-weight:600;
+  }
+  td:nth-of-type(1):before {
+    content: "Product";
+  }
+  td:nth-of-type(2):before {
+    content: "Price";
+  }
+  td:nth-of-type(3):before {
+    content: "Quantity";
+  }
+  td:nth-of-type(4):before {
+    content: "Subtotal";
+  }
+  td:nth-of-type(5):before {
+    content: "Remove";
+  }
+  .add-reduce button {
+    margin: 0 2px;
+    padding: 5px;
+  }
+  .bottom span{
+    font-size:14px;
   }
 }

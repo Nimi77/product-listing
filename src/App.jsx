@@ -40,6 +40,19 @@ function App() {
     fetchProducts();
   }, []);
 
+  // Retrieve cart from local storage on mount
+  useEffect(() => {
+    const storedCart = localStorage.getItem("cart");
+    if (storedCart) {
+      setCart(JSON.parse(storedCart));
+    }
+  }, []);
+  
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart])
+
+   // Add to cart function
   const addToCart = (product) => {
     if (quantities[product.id] === 0) {
       setShowModal(true);
@@ -51,7 +64,8 @@ function App() {
     }
     //updating the [cart] state
     setCart((prevCart) => {
-      const existingProduct = prevCart.find((item) => item.id === product.id); // Checks if the product is already in the cart
+      // Checks if the product is already in the cart
+      const existingProduct = prevCart.find((item) => item.id === product.id); 
 
       // Increase item quantities
       if (existingProduct) {
@@ -61,19 +75,22 @@ function App() {
             : item
         );
       } else {
-        return [...prevCart, { ...product, quantity: quantities[product.id] }]; // If the product is not in the cart, add it with quantity 1
+        // If the product is not in the cart, add it with quantity 1
+        return [...prevCart, { ...product, quantity: quantities[product.id] }]; 
       }
     });
+     // Reset quantity after adding to cart
     setQuantities((prevQuantities) => ({
       ...prevQuantities,
       [product.id]: 0,
-    })); // Reset quantity after adding to cart
+    }));
 
     setShowModal(true);
     setModalMessage("Product has been added to cart successfully.");
     setModalIcon(<SuccessIcon />);
   };
-
+ 
+  // Remove from cart function
   const removeFromCart = (productId) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
   };
@@ -85,11 +102,12 @@ function App() {
     }));
 
     setCart((prevCart) => {
-      return prevCart.map((item) =>
+      const updatedCart = prevCart.map((item) =>
         item.id === productId && item.quantity > 1
           ? { ...item, quantity: item.quantity - 1 }
           : item
       );
+      return updatedCart.filter((item)=> item.quantity > 0)
     });
   };
 
@@ -106,7 +124,7 @@ function App() {
     });
   };
 
-  //pagnation button
+  //pagination button
   const handleNext = () => {
     setCurrentProductIndex((prevIndex) =>
       Math.min(prevIndex + 1, products.length - 3)
@@ -124,6 +142,7 @@ function App() {
   return (
     <Router>
       <div className="container">
+        <div className="overlay"></div>
         <header className="header">
           <Link to="/cart">
             <CartIcon />

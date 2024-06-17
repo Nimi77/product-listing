@@ -17,4 +17,4 @@ This project is a web application built with React. It allows users to view avai
 - The return button takes user back to the product page
 
 ## Hosting
-Click [here](#https://product-listing-murex.vercel.app/) to view the page.
+Click [here](https://product-listing-murex.vercel.app/) to view the page.

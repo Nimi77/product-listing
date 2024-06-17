@@ -19,7 +19,6 @@ a {
 /* backgound setup */
 body {
   width: 100%;
-  height:100vh;
   position: relative;
   background: url("https://img.freepik.com/free-photo/cropped-image-woman-inputting-card-information-key-phone-laptop-while-shopping-online_1423-68.jpg")
     no-repeat center center/cover;
@@ -81,84 +80,10 @@ body:after {
   cursor: not-allowed;
   opacity: 0.5;
 }
-.product-container {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 22px;
-}
-.product {
-  padding: 14px 16px;
-  display: flex;
-  flex-direction: column;
-  background-color: #ebebeb;
-}
-.img-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  margin-bottom: 12px;
-}
-.product img {
-  height: 180px;
-  width: 180px;
-  border-radius: 50%;
-}
-.p-heading span {
-  font-size: 14px;
-}
-.p-heading h4 {
-  padding-block: 4px 12px;
-}
-.p-heading p {
-  font-size: 14px;
-  max-width: 500px;
-  line-height: 22px;
-}
-.read-more-link {
-  color: #007bff;
-}
-.quantity {
-  margin: 12px 0;
-}
-.add-remove {
-  display: flex;
-  gap: 12px;
-  margin-block: 14px;
-}
-.add-remove button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: transparent;
-  border-radius: 20px;
-  border: 2px solid #33302c;
-  font-size: 14px;
-  padding: 9px 8px;
-  height: 18px;
-  width: 24px;
-}
-.addCart {
-  width: 100%;
-  font-weight: 600;
-  background-color: white;
-  padding: 10px 12px;
-  cursor: pointer;
-  font-family: "DM Sans", san-serif;
-}
-/* modal */
 
-@media screen and (max-width: 900px) {
-  .product-container {
-    display: flex;
-    flex-direction:column;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 22px;
+@media screen and (max-width:900px){
+  body{
+     height:270vh;
   }
-  .p-heading p {
-    font-size: 14px;
-    max-width: 100%;
-  }
+ 
 }

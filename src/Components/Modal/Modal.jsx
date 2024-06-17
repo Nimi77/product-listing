@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 const Modal = ({ message, icon, show, onClose }) => {
   useEffect(() => {
     if (show) {
-      const timer = setTimeout(onClose, 2000);
+      const timer = setTimeout(onClose, 1000);
       return () => clearTimeout(timer);
     }
   }, [show, onClose]);

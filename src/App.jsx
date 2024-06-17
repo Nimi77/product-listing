@@ -1,18 +1,15 @@
-/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
 import CartIcon from "./Components/SvgIcon/CartIcon";
-import ProductIcon from "./Components/SvgIcon/ProductIcon";
 import Cart from "./Components/Cart/Cart";
 import ArrowLeft from "./Components/SvgIcon/ArrowLeft";
 import ArrowRight from "./Components/SvgIcon/ArrowRight";
-import ProductList from "./Components/ProductList";
+import ProductList from "./Components/Product/ProductList";
 import Modal from "./Components/Modal/Modal";
 import SuccessIcon from "./Components/SvgIcon/SuccessIcon";
-import ErrorIcon from "./Components/SvgIcon/ErrorIcon"
+import ErrorIcon from "./Components/SvgIcon/ErrorIcon";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -49,7 +46,7 @@ function App() {
       setModalMessage(
         "Please add a quantity greater than 0 before adding to cart."
       );
-      setModalIcon(<ErrorIcon/>);
+      setModalIcon(<ErrorIcon />);
       return;
     }
     //updating the [cart] state
@@ -74,8 +71,7 @@ function App() {
 
     setShowModal(true);
     setModalMessage("Product has been added to cart successfully.");
-    setModalIcon(<SuccessIcon/>);
-    
+    setModalIcon(<SuccessIcon />);
   };
 
   const removeFromCart = (productId) => {
@@ -87,6 +83,14 @@ function App() {
       ...prevQuantities,
       [productId]: Math.max(prevQuantities[productId] - 1, 0),
     }));
+
+    setCart((prevCart) => {
+      return prevCart.map((item) =>
+        item.id === productId && item.quantity > 1
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      );
+    });
   };
 
   const increaseQuantity = (productId) => {
@@ -94,6 +98,12 @@ function App() {
       ...prevQuantities,
       [productId]: prevQuantities[productId] + 1,
     }));
+
+    setCart((prevCart) => {
+      return prevCart.map((item) =>
+        item.id === productId ? { ...item, quantity: item.quantity + 1 } : item
+      );
+    });
   };
 
   //pagnation button
@@ -115,9 +125,6 @@ function App() {
     <Router>
       <div className="container">
         <header className="header">
-          <Link to="/">
-            <ProductIcon />
-          </Link>
           <Link to="/cart">
             <CartIcon />
           </Link>

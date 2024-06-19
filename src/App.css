@@ -18,7 +18,6 @@ a {
 }
 /* backgound setup */
 body {
- 
   position: relative;
   background: url("https://img.freepik.com/free-photo/cropped-image-woman-inputting-card-information-key-phone-laptop-while-shopping-online_1423-68.jpg")
     no-repeat center center/cover;
@@ -40,20 +39,20 @@ body {
   background: rgba(0, 0, 0, 0.5);
   z-index: -1;
 }
-.header {
+.navigation {
   display: flex;
   justify-content:flex-end;
   padding: 20px 0;
   color:white;
 }
-.header a {
+.navigation a {
   color: #fff;
 }
-/* main */
-.main{
-  margin:2rem 0 3rem;
+/* product */
+.product-section{
+  margin-top:2rem;
 }
-.main-heading{
+.product-section .heading{
   display:flex;
   align-items:center;
   justify-content:space-between;

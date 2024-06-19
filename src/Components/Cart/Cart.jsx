@@ -1,8 +1,11 @@
-import PropTypes from "prop-types";
 import "./Cart.css";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { CartContext } from "../../Context/CartContext";
 
-const Cart = ({ cart, reduceQuantity, increaseQuantity, removeFromCart }) => {
+const Cart = () => {
+  const { cart, reduceQuantity, increaseQuantity, removeFromCart } = useContext(CartContext);
+
   return (
     <div id="cart">
       <div className="cart-container">
@@ -25,9 +28,7 @@ const Cart = ({ cart, reduceQuantity, increaseQuantity, removeFromCart }) => {
                     <td>{item.title}</td>
                     <td>${item.price}</td>
                     <td className="add-reduce">
-                      <button onClick={() => reduceQuantity(item.id)}>
-                        -
-                      </button>
+                      <button onClick={() => reduceQuantity(item.id)}>-</button>
                       <span>
                         {item.quantity < 10
                           ? "0" + item.quantity
@@ -88,18 +89,6 @@ const Cart = ({ cart, reduceQuantity, increaseQuantity, removeFromCart }) => {
   );
 };
 
-Cart.propTypes = {
-  cart: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      quantity: PropTypes.number.isRequired,
-    })
-  ).isRequired,
-  reduceQuantity: PropTypes.func.isRequired,
-  increaseQuantity: PropTypes.func.isRequired,
-  removeFromCart: PropTypes.func.isRequired,
-};
+
 
 export default Cart;

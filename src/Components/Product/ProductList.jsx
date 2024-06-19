@@ -1,5 +1,7 @@
+import "./Product.css";
+import { useContext } from "react";
+import { CartContext } from "../../Context/CartContext";
 import PropTypes from "prop-types";
-import './Product.css';
 
 const capitalizeFirstLetter = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -14,7 +16,10 @@ const truncateDescription = (description) => {
   return description;
 };
 
-const ProductList = ({ products,reduceQuantity, increaseQuantity, addToCart, quantities }) => {
+const ProductList = ({ products }) => {
+  const { reduceQuantity, increaseQuantity, quantities, addToCart } =
+    useContext(CartContext);
+
   return (
     <div id="products" className="product-lists">
       <div className="product-container">
@@ -50,17 +55,7 @@ const ProductList = ({ products,reduceQuantity, increaseQuantity, addToCart, qua
 };
 
 ProductList.propTypes = {
-  products: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-    })
-  ).isRequired,
-  addToCart: PropTypes.func.isRequired,
-  reduceQuantity: PropTypes.func.isRequired,
-  increaseQuantity: PropTypes.func.isRequired,
-  quantities: PropTypes.objectOf(PropTypes.number).isRequired,
+  products: PropTypes.array.isRequired,
 };
 
 export default ProductList;

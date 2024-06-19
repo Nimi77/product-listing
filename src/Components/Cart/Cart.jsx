@@ -7,7 +7,7 @@ const Cart = () => {
   const { cart, reduceQuantity, increaseQuantity, removeFromCart } = useContext(CartContext);
 
   return (
-    <div id="cart">
+    <div id="cart" className="cart">
       <div className="cart-container">
         <h2>Shopping Cart</h2>
         <div className="table-responsive">

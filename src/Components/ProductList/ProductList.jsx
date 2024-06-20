@@ -1,4 +1,4 @@
-import "./Product.css";
+import "./ProductList.css";
 import { useContext } from "react";
 import { CartContext } from "../../Context/CartContext";
 import PropTypes from "prop-types";

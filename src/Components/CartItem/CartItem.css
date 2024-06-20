@@ -1,20 +1,11 @@
-.cart {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
 .cart-container {
   width: 100%;
   overflow-x: auto;
   display: flex;
   flex-direction: column;
-  gap: 2.8rem;
   justify-content: center;
-  align-items: center;
-}
-.cart-container h2 {
-  color: white;
+  align-items: center;  
+  gap: 2.8rem;
 }
 .table-responsive {
   width: 100%;

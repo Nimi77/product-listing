@@ -1,10 +1,8 @@
-import { useEffect } from "react";
 import "./Modal.css";
-import { useContext } from "react";
-import { CartContext } from "../../Context/CartContext";
+import { useEffect } from "react";
+import PropTypes from "prop-types";
 
-const Modal = () => {
-  const { message, icon, show, onClose } = useContext(CartContext)
+const Modal = ({ message, icon, show, onClose }) => {
   useEffect(() => {
     if (show) {
       const timer = setTimeout(onClose, 1000);
@@ -25,3 +23,10 @@ const Modal = () => {
 };
 
 export default Modal;
+
+Modal.propTypes = {
+  message: PropTypes.string.isRequired,
+  icon: PropTypes.element.isRequired,
+  show: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+};

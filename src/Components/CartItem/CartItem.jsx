@@ -1,15 +1,14 @@
-import "./Cart.css";
+import "./CartItem.css";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { CartContext } from "../../Context/CartContext";
 
-const Cart = () => {
+const CartItem = () => {
   const { cart, reduceQuantity, increaseQuantity, removeFromCart } = useContext(CartContext);
 
   return (
-    <div id="cart" className="cart">
+    <div className="cart-items">
       <div className="cart-container">
-        <h2>Shopping Cart</h2>
         <div className="table-responsive">
           <table>
             <thead>
@@ -91,4 +90,4 @@ const Cart = () => {
 
 
 
-export default Cart;
+export default CartItem;

@@ -4,5 +4,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+button{
+  font-family: "DM Sans", sans-serif;
+}
 

@@ -6,7 +6,7 @@ import ProductList from "../../Components/ProductList/ProductList";
 import Modal from "../../Components/Modal/Modal";
 import { Link } from "react-router-dom";
 import CartIcon from "../../Components/SvgIcon/CartIcon";
-import "./Product.css"
+import "./Product.css";
 
 function ProductPage() {
   const {
@@ -22,40 +22,48 @@ function ProductPage() {
 
   const displayedProducts = products.slice(
     currentProductIndex,
-    currentProductIndex + 10
+    currentProductIndex + 9
   );
 
   return (
     <div className="product-page">
       <div className="container">
-        <div className="overlay"></div>
         {/* navigation */}
         <header className="navigation">
           <span>/Products</span>
           <div className="right-nav">
             <button>Best Sellers</button>
-            <Link to="/cart" >
-              <button className="cart-btn">Cart <CartIcon /> </button>
+            <Link to="/cart">
+              <button className="cart-btn">
+                Cart <CartIcon />{" "}
+              </button>
             </Link>
           </div>
         </header>
         <div className="main">
           <div className="main-heading">
             <h3>Shop Our Best Sellers</h3>
-            <p>Discover the ultimate beauty makeup product that will revolutionize your beauty routine! Our versatile makeup is crafted to enhance your natural features.</p>
+            <p>
+              Discover our best products ranging from makeup, skincare, fresh food, gourmet
+              treats, fruits, and more. Shop top-quality products conveniently
+              and affordably, all in one place.
+            </p>
           </div>
           <div className="arrow-buttons">
-              <button onClick={handlePrev} disabled={currentProductIndex === 0}>
-                <ArrowLeft />
-              </button>
-              <button
-                onClick={handleNext}
-                disabled={currentProductIndex >= products.length - 3}
-              >
-                <ArrowRight />
-              </button>
-            </div>
+            <button onClick={handlePrev} disabled={currentProductIndex === 0}>
+              <ArrowLeft />
+            </button>
+            <button
+              onClick={handleNext}
+              disabled={currentProductIndex >= products.length - 3}
+            >
+              <ArrowRight />
+            </button>
+          </div>
           {products.length > 0 && <ProductList products={displayedProducts} />}
+          <div className="show-btn">
+            <button>Show More</button>
+          </div>
         </div>
         <Modal
           message={modalMessage}

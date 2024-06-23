@@ -1,7 +1,7 @@
 .product-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 33px;
   margin-top: 22px;
 }
 .product {
@@ -13,7 +13,6 @@
   align-items: center;
   justify-content: center;
   background-color: white;
-  margin-bottom: 12px;
   border-top-left-radius: 22px;
   border-top-right-radius: 22px;
 }
@@ -76,4 +75,11 @@
     font-size: 14px;
     max-width: 100%;
   }
+}
+@media screen and (max-width: 600px) {
+  .product-container {
+    display: grid;
+     grid-template-columns: 1fr;
+  }
+ 
 }

@@ -8,7 +8,7 @@ const ArrowRight = () => (
   >
     <path
       d="M9 5L16 12L9 19"
-      stroke="black"
+      stroke="#FFE5E7"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"

@@ -1,4 +1,4 @@
-.l-box{
+.l-box {
   position: fixed;
   top: 0;
   left: 0;
@@ -10,38 +10,38 @@
   z-index: 9999;
 }
 .loader {
-	background: #FFE5E7;
-	position: relative;
-	animation: loader 1s ease-in-out infinite;
-	animation-delay: 0.4s;
-	width: .5em;
-	height: 3em;
-	margin: 0 .5em;
-	&:after,
-	&:before {
-		content: '';
-		position: absolute;
-		width: inherit;
-		height: inherit;
-		background: inherit;
-		animation: inherit;
-	}
-	&:before {
-		right: 1.2em;
-		animation-delay: 0.2s;
-	}
-	&:after {
-		left: 1.2em;
-		animation-delay: 0.6s;
-	}
+  background: #ffe5e7;
+  position: relative;
+  animation: loader 1s ease-in-out infinite;
+  animation-delay: 0.4s;
+  width: 0.5em;
+  height: 3em;
+  margin: 0 0.5em;
+  &:after,
+  &:before {
+    content: "";
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    background: inherit;
+    animation: inherit;
+  }
+  &:before {
+    right: 1.2em;
+    animation-delay: 0.2s;
+  }
+  &:after {
+    left: 1.2em;
+    animation-delay: 0.6s;
+  }
 }
 
-@keyframes loader{
-	0%,
-	100% {
-		box-shadow: 0 0 0 #FFE5E7, 0 0 0 #FFE5E7;
-	}
-	50% {
-		box-shadow: 0 -.25em 0 #FFE5E7, 0 .25em 0 #FFE5E7;
-	}
+@keyframes loader {
+  0%,
+  100% {
+    box-shadow: 0 0 0 #ffe5e7, 0 0 0 #ffe5e7;
+  }
+  50% {
+    box-shadow: 0 -0.25em 0 #ffe5e7, 0 0.25em 0 #ffe5e7;
+  }
 }

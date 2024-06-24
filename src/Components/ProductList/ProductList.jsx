@@ -2,23 +2,44 @@ import "./ProductList.css";
 import { useContext } from "react";
 import { CartContext } from "../../Context/CartContext";
 import PropTypes from "prop-types";
+import { useState } from "react";
 
 const capitalizeFirstLetter = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
-};
-const truncateDescription = (description) => {
-  const words = description.split(" ");
-  if (words.length > 14) {
-    return `${words
-      .slice(0, 14)
-      .join(" ")}... <a href="#" class="read-more-link">Read more</a>`;
-  }
-  return description;
 };
 
 const ProductList = ({ products }) => {
   const { reduceQuantity, increaseQuantity, quantities, addToCart } =
     useContext(CartContext);
+  const [expandedDesc, setExpandedDesc] = useState({});
+
+  const handleToggleDescription = (productId) => {
+    setExpandedDesc((prev) => ({
+      ...prev,
+      [productId]: !prev[productId],
+    }));
+  };
+
+  const truncateDescription = (description, isExpanded) => {
+    const words = description.split(" ");
+    if (isExpanded || words.length <= 14) {
+      return description;
+    } else {
+      return `${words.slice(0, 14).join(" ")}...`;
+    }
+  };
+
+  //   const fallbackImages = [
+  //     "https://img.freepik.com/free-psd/luxury-perfume-bottle-png-isolated-transparent-background_191095-9836.jpg",
+  //     "https://img.freepik.com/free-psd/luxury-perfume-bottle-png-isolated-transparent-background_191095-9834.jpg",
+  //     "https://img.freepik.com/free-psd/luxury-perfume-bottle-png-isolated-transparent-background_191095-9829.jpg",
+  //     "https://img.freepik.com/free-psd/luxury-perfume-bottle-png-isolated-transparent-background_191095-9838.jpg",
+  //   ]
+
+  //  const getRandomImages = () => {
+  //   const randomIndex = Math.floor(Math.random() * fallbackImages.length)
+  //   return fallbackImages[randomIndex]
+  //  }
 
   return (
     <div id="products" className="product-lists">
@@ -32,20 +53,31 @@ const ProductList = ({ products }) => {
               <div className="p-heading">
                 <span>{capitalizeFirstLetter(product.category)}</span>
                 <h4>{product.title}</h4>
-                <p
-                  dangerouslySetInnerHTML={{
-                    __html: truncateDescription(product.description),
-                  }}
-                ></p>
+                <p>
+                  {truncateDescription(
+                    product.description,
+                    expandedDesc[product.id]
+                  )}
+                  {product.description.split(" ").length > 14 && (
+                    <a
+                      href="#"
+                      className="read-more-link"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleToggleDescription(product.id);
+                      }}
+                    >
+                      {expandedDesc[product.id] ? " Show less" : " Read more"}
+                    </a>
+                  )}
+                </p>
               </div>
               <div className="add-remove">
                 <button onClick={() => reduceQuantity(product.id)}> - </button>
                 <span>{quantities[product.id]}</span>
                 <button onClick={() => increaseQuantity(product.id)}> + </button>
               </div>
-              <button onClick={() => addToCart(product)} className="addCart">
-                Add to Cart
-              </button>
+              <button onClick={() => addToCart(product)} className="addCart">Add to Cart</button>
             </div>
           </div>
         ))}

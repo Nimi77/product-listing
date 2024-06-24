@@ -38,6 +38,9 @@
 .read-more-link {
   color: #0b57d0ff;
 }
+.read-more-link:hover{
+  text-decoration:underline;
+}
 .quantity {
   margin: 12px 0;
 }

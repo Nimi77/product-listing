@@ -12,6 +12,9 @@ function ProductPage() {
   const {
     products,
     currentProductIndex,
+    displayedProducts,
+    handleShowMoreOrLess,
+    showAll,
     handleNext,
     handlePrev,
     showModal,
@@ -20,33 +23,25 @@ function ProductPage() {
     setShowModal,
   } = useContext(CartContext);
 
-  const displayedProducts = products.slice(
-    currentProductIndex,
-    currentProductIndex + 9
-  );
-
   return (
     <div className="product-page">
       <div className="container">
         {/* navigation */}
         <header className="navigation">
           <span>/Products</span>
-          <div className="right-nav">
-            <button>Best Sellers</button>
-            <Link to="/cart">
-              <button className="cart-btn">
-                Cart <CartIcon />{" "}
-              </button>
-            </Link>
-          </div>
+          <Link to="/cart">
+            <button className="cart-btn">
+              Cart <CartIcon />
+            </button>
+          </Link>
         </header>
         <div className="main">
           <div className="main-heading">
             <h3>Shop Our Best Sellers</h3>
             <p>
-              Discover our best products ranging from makeup, skincare, fresh food, gourmet
-              treats, fruits, and more. Shop top-quality products conveniently
-              and affordably, all in one place.
+              Discover our best products ranging from makeup, skincare, fresh
+              food, gourmet treats, fruits, and more. Shop top-quality products
+              conveniently and affordably, all in one place.
             </p>
           </div>
           <div className="arrow-buttons">
@@ -62,7 +57,9 @@ function ProductPage() {
           </div>
           {products.length > 0 && <ProductList products={displayedProducts} />}
           <div className="show-btn">
-            <button>Show More</button>
+            <button onClick={handleShowMoreOrLess}>
+              {showAll ? "Show Less" : "Show More"}
+            </button>
           </div>
         </div>
         <Modal

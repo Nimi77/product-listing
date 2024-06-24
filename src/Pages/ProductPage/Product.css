@@ -8,22 +8,21 @@
 .navigation span {
   font-weight: 600;
 }
-.right-nav,
 .cart-btn {
   display: flex;
   gap: 14px;
+  align-items:center;
 }
-.right-nav button {
+button.cart-btn {
   background-color: transparent;
   border: 2px solid white;
   padding: 7px 16px;
-  border-radius: 0.4rem;
   color: white;
   font-size: 14px;
 }
 .main {
-  padding-top: 2rem;
-  padding-bottom: 3rem;
+  padding-top: 3rem;
+  padding-bottom: 4rem;
 }
 .main-heading {
   display: flex;

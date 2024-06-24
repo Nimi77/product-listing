@@ -14,11 +14,12 @@ const CartProvider = ({ children }) => {
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [modalIcon, setModalIcon] = useState(null);
+  const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchProducts(); 
+        const data = await fetchProducts();
         //console.log(data.products)
         setProducts(data.products);
 
@@ -111,11 +112,31 @@ const CartProvider = ({ children }) => {
   //pagination button
   const handleNext = () => {
     setCurrentProductIndex((prevIndex) =>
-      Math.min(prevIndex + 1, products.length - 3)
+      Math.min(prevIndex + 3, products.length)
     );
   };
   const handlePrev = () => {
-    setCurrentProductIndex((prevIndex) => Math.max(0, prevIndex - 1));
+    setCurrentProductIndex((prevIndex) => Math.max(0, prevIndex - 3));
+  };
+
+  const displayedProducts = products.slice(
+    currentProductIndex,
+    currentProductIndex + 9
+  );
+  const handleShowMoreOrLess = (e) => {
+    e.preventDefault();
+
+    if (showAll) {
+      setCurrentProductIndex(0);
+      setShowAll(false);
+    } else {
+      const nextIndex = currentProductIndex + 9;
+      if (nextIndex >= products.length) {
+        setShowAll(true);
+      } else {
+        setCurrentProductIndex(nextIndex);
+      }
+    }
   };
 
   return (
@@ -124,6 +145,10 @@ const CartProvider = ({ children }) => {
         products,
         cart,
         currentProductIndex,
+        setCurrentProductIndex,
+        displayedProducts,
+        handleShowMoreOrLess,
+        showAll,
         quantities,
         reduceQuantity,
         increaseQuantity,
@@ -137,7 +162,7 @@ const CartProvider = ({ children }) => {
         handlePrev,
       }}
     >
-      { children }
+      {children}
     </CartContext.Provider>
   );
 };

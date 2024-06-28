@@ -29,25 +29,13 @@ const ProductList = ({ products }) => {
     }
   };
 
-  //   const fallbackImages = [
-  //     "https://img.freepik.com/free-psd/luxury-perfume-bottle-png-isolated-transparent-background_191095-9836.jpg",
-  //     "https://img.freepik.com/free-psd/luxury-perfume-bottle-png-isolated-transparent-background_191095-9834.jpg",
-  //     "https://img.freepik.com/free-psd/luxury-perfume-bottle-png-isolated-transparent-background_191095-9829.jpg",
-  //     "https://img.freepik.com/free-psd/luxury-perfume-bottle-png-isolated-transparent-background_191095-9838.jpg",
-  //   ]
-
-  //  const getRandomImages = () => {
-  //   const randomIndex = Math.floor(Math.random() * fallbackImages.length)
-  //   return fallbackImages[randomIndex]
-  //  }
-
   return (
     <div id="products" className="product-lists">
       <div className="product-container">
         {products.map((product) => (
           <div key={product.id} className="product">
             <div className="img-container">
-              <img src={product.images} alt="product-image" />
+              <img src={product.images[0]} alt="product-image" />
             </div>
             <div className="product-details">
               <div className="p-heading">

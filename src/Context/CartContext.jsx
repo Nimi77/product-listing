@@ -8,9 +8,12 @@ const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    const storedCart = sessionStorage.getItem('cart');
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
-  const [quantities, setQuantities] = useState({});
+  const [quantities, setQuantities] = useState();
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [modalIcon, setModalIcon] = useState(null);
@@ -36,6 +39,11 @@ const CartProvider = ({ children }) => {
     fetchData();
   }, []);
 
+  //to ensure that cart state is always up-to-date in sessionStorage
+  useEffect(() => {
+    sessionStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
+
   // Add to cart function
   const addToCart = (product) => {
     if (quantities[product.id] === 0) {
@@ -50,7 +58,7 @@ const CartProvider = ({ children }) => {
     setCart((prevCart) => {
       // Checks if the product is already in the cart
       const existingProduct = prevCart.find((item) => item.id === product.id);
-
+        console.log(existingProduct)
       // Increase item quantities
       if (existingProduct) {
         return prevCart.map((item) =>
@@ -60,7 +68,7 @@ const CartProvider = ({ children }) => {
         );
       } else {
         // If the product is not in the cart, add it with quantity 1
-        return [...prevCart, { ...product, quantity: quantities[product.id] }];
+        return [...prevCart, { ...product, quantity: quantities[product.id]}];
       }
     });
 
@@ -85,15 +93,6 @@ const CartProvider = ({ children }) => {
       ...prevQuantities,
       [productId]: Math.max(prevQuantities[productId] - 1, 0),
     }));
-
-    setCart((prevCart) => {
-      const updatedCart = prevCart.map((item) =>
-        item.id === productId && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      );
-      return updatedCart.filter((item) => item.quantity > 0);
-    });
   };
 
   const increaseQuantity = (productId) => {
@@ -101,14 +100,24 @@ const CartProvider = ({ children }) => {
       ...prevQuantities,
       [productId]: prevQuantities[productId] + 1,
     }));
-
-    setCart((prevCart) => {
-      return prevCart.map((item) =>
+  };
+  const increaseCartQuantity = (productId) => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
         item.id === productId ? { ...item, quantity: item.quantity + 1 } : item
-      );
-    });
+      )
+    );
   };
 
+  const reduceCartQuantity = (productId) => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.id === productId && item.quantity > 1
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      )
+    );
+  };
   //pagination button
   const handleNext = () => {
     setCurrentProductIndex((prevIndex) =>
@@ -160,6 +169,8 @@ const CartProvider = ({ children }) => {
         modalIcon,
         handleNext,
         handlePrev,
+        reduceCartQuantity,
+        increaseCartQuantity
       }}
     >
       {children}

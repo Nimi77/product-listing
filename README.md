@@ -1,6 +1,6 @@
 # Product Listing and Cart Management
 
-This project is a web application built with React. It allows users to view available products, add them to the cart, and manage the cart's content. The application fetches product data from an external API and supports functionalities such as increasing or decreasing product quantities and displaying a modal for user feedback.
+This project is a web application built with React. It allows users to view available products, add them, and manage the cart's content. The application fetches product data from an external API and supports functionalities such as increasing or decreasing product quantities and displaying a modal for user feedback.
 
 ## Features
 
@@ -13,8 +13,8 @@ This project is a web application built with React. It allows users to view avai
 - Navigate between product listing and cart pages
 
 ## Navigation
-- Click on the cart icon in the home page to check items added to cart. You can also remove items in cart.
-- The return button takes user back to the product page
+- Click on the cart icon on the home page to check items added to the cart. You can also remove items from the cart.
+- The return button takes the user back to the product page
 
 ## Hosting
-Click [here](https://product-listing-murex.vercel.app/) to view the page.
+Click [here](https://product-listing-web.vercel.app/) to view the page.
